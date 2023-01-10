@@ -1,0 +1,31 @@
+#initialize input variable
+fname = input('Enter file name: ')
+#initialize empty dictionary
+di = {}
+#add some text to privent the traceback
+try:
+    ftry = open(fname)
+    #open the file
+    with open(fname, 'r') as f:
+        #read through the file line by line
+        for line in f:
+            #if the line start with 'From' extract the sender's email address
+            if line.startswith('From '):
+                #split the line to a list of words
+                words = line.split()
+                #extract the second word (the email address)
+                sender = words[1]
+                #increment the count for this sender's email address
+                di[sender] = di.get(sender,0) + 1
+
+    #find the email address with the maximum count
+    max_count = 0
+    max_sender = None
+    #initialize dictionary items
+    for sender,count in di.items():
+        if count > max_count:
+            max_count = count
+            max_sender = sender
+    print(max_sender, max_count)
+except:
+    print(f'The name of the file you entered is not correct "{fname}"')
